@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head></head>
+    <body>
+        <div class="wrapper wrapper-content">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Tabla de Administracion de Usuarios</h5>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
+                    <li><a data-toggle="tab" href="#menu1">Actividades</a></li>
+                </ul>
+                            
+                <div class="tab-content">
+                    <h:form>
+                    <div id="home" class="tab-pane fade in active">
+                        <h3>Datos Personales</h3>
+                        <p>Cedula : <h:inputText value="#{clienteController.selected.CI}"/></p>
+                        <p>Nombre : <h:inputText value="#{clienteController.selected.nombre}"/></p>
+                        <p>Telefono : <h:inputText value="#{clienteController.selected.cel}"/></p>
+                        <p>Edad : <h:inputText value="#{clienteController.selected.edad}"/></p>
+                        <p>Sexo : <h:inputText value="#{clienteController.selected.sexo}"/></p>
+                        <p>Estado : <h:inputText value="#{clienteController.selected.estado}"/></p>
+                        <h:commandButton value="guardar" action="#{clienteController.modificarCliente()}" />
+                    </div>
+                    </h:form>
+                    <div id="menu1" class="tab-pane fade">
+                        <h3>Actividades</h3>
+                        <p>Aqui se listaran futuras actividades.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

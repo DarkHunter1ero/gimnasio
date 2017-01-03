@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head></head>
+    <body>
+        <ui:composition>
+            <div class="wrapper wrapper-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Tabla de Administracion de Usuarios</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        
+                        <p>Permite visivilidad, modificacion y eliminacion de usuario.</p>
+                        <div class="table-responsive">
+                            <h:form>
+                                <p:dataTable class="table table-bordered table-striped" value="#{clienteController.items}" var="cliente" paginator="true" paginatorPosition="bottom" rows="10" >
+                                    <p:column headerText="Cedula">
+                                        <h:outputText value="#{cliente.CI}"/>
+                                    </p:column>
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{cliente.nombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Tel. Cel">
+                                        <h:outputText value="#{cliente.cel}"/>
+                                    </p:column>
+                                    <p:column headerText="Edad">
+                                        <h:outputText value="#{cliente.edad}"/>
+                                    </p:column>
+                                    <p:column headerText="Sexo">
+                                        <h:outputText value="#{cliente.sexo}"/>
+                                    </p:column>
+                                    <p:column headerText="Estado">
+                                        <h:outputText value="#{cliente.estado}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:commandButton class="btn btn-primary" value="Detalle" action="#{clienteController.curdButton(cliente.CI, 'detalle')}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:commandButton class="btn btn-success" value="Modificar" action="#{clienteController.curdButton(cliente.CI, 'modificar')}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:commandButton class="btn btn-danger" value="Eleiminar" action="#{clienteController.curdButton(cliente.CI, 'borrar')}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:composition>
+    </body>
+</html>

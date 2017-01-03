@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <head></head>
+    <body>
+        <ui:composition>
+            <div class="wrapper wrapper-content">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Tabla de Administracion de Usuarios</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">Config option 1</a>
+                                </li>
+                                <li><a href="#">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        
+                        <p>Permite modificacion y eliminacion de actividades.</p>
+                        <div class="table-responsive">
+                            <h:form>
+                                <p:dataTable class="table table-bordered table-striped" value="#{actividadController.items}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{item.nombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Precio">
+                                        <h:outputText value="#{item.precio}"/>
+                                    </p:column>
+                                    <p:column headerText="Tipo">
+                                        <h:outputText value="#{item.tipo}"/>
+                                    </p:column>
+                                    <p:column headerText="Activo" style="text-align: center">
+                                        <h:outputLabel rendered="#{item.activo}">
+                                            <i class="fa fa-check text-navy"></i>
+                                        </h:outputLabel>   
+                                        <h:outputLabel rendered="#{not item.activo}">
+                                            <i class="fa fa fa-times text-danger"></i>
+                                        </h:outputLabel> 
+                                    </p:column>
+                                    <p:column>
+                                        <h:commandButton class="btn btn-success" value="Modificar"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:commandButton class="btn btn-danger" value="Eleiminar"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:composition>
+    </body>
+</html>
