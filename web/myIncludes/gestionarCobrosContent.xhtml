@@ -33,7 +33,7 @@
                         <div class="ibox-content inline" >
                             
                             <div class="col-lg-6">
-                                <p:dataTable class="table table-striped" value="#{cobroController.items[0].cobroActividad}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
+                                <p:dataTable class="table table-striped" value="#{cobroController.itemsWithActividades[0].cobroActividad}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
                                     <p:column headerText="#">
                                         <h:outputText value="#{item.id}"/>
                                     </p:column>
@@ -41,7 +41,7 @@
                                         <h:outputText value="#{item.idCobro}"/>
                                     </p:column>
                                     <p:column headerText="Actividad">
-                                        <h:outputText value="#{item.idActividad}"/>
+                                        <h:outputText value="#{item.actividad.nombre}"/>
                                     </p:column>
                                     <p:column headerText="Cantidad">
                                         <h:outputText value="#{item.cantidad}"/>

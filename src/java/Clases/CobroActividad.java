@@ -11,17 +11,17 @@ public class CobroActividad  implements java.io.Serializable {
 
      private int id;
      private int idCobro;
-     private int idActividad;
+     private Actividad actividad;
      private int cantidad;
 
     public CobroActividad() {
     }
 
-    public CobroActividad(int id, int idCobro, int idActividad, int cantidad) {
-       this.id = id;
-       this.idCobro = idCobro;
-       this.idActividad = idActividad;
-       this.cantidad = cantidad;
+    public CobroActividad(int id, int idCobro, Actividad actividad, int cantidad) {
+        this.id = id;
+        this.idCobro = idCobro;
+        this.actividad = actividad;
+        this.cantidad = cantidad;
     }
    
     public int getId() {
@@ -38,13 +38,15 @@ public class CobroActividad  implements java.io.Serializable {
     public void setIdCobro(int idCobro) {
         this.idCobro = idCobro;
     }
-    public int getIdActividad() {
-        return this.idActividad;
+
+    public Actividad getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
     }
     
-    public void setIdActividad(int idActividad) {
-        this.idActividad = idActividad;
-    }
     public int getCantidad() {
         return this.cantidad;
     }

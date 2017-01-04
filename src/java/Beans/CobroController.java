@@ -55,6 +55,11 @@ public class CobroController implements Serializable{
         this.items=helper.findAll();
     }
     
+    public List<Cobro> getItemsWithActividades(){
+        this.items=helper.findAllInitAll();
+        return items;
+    }
+    
     public Cobro getCobro(int id){
         return helper.findById(id);
     }

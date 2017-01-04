@@ -37,7 +37,46 @@ public class CobroHelper extends DBGenericClass<Cobro>{
             list = cri.list();
             for (Cobro cobro : list) {
                 Hibernate.initialize(cobro.getCliente());
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            session.close();
+        }
+        return list;
+    }
+    
+    public List<Cobro> findAllInitCobAct() {
+        List<Cobro> list = null;
+        try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            Criteria cri = session.createCriteria(Cobro.class);
+            list = cri.list();
+            for (Cobro cobro : list) {
+                Hibernate.initialize(cobro.getCliente());
                 Hibernate.initialize(cobro.getCobroActividad());
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            session.close();
+        }
+        return list;
+    }
+    
+    public List<Cobro> findAllInitAll() {
+        List<Cobro> list = null;
+        try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            Criteria cri = session.createCriteria(Cobro.class);
+            list = cri.list();
+            for (Cobro cobro : list) {
+                Hibernate.initialize(cobro.getCliente());
+                Hibernate.initialize(cobro.getCobroActividad());
+                List<CobroActividad> listActCob = cobro.getCobroActividad();
+                for (CobroActividad actCob : listActCob) {
+                    Hibernate.initialize(actCob.getActividad());
+                }
             }
         }catch(Exception e){
             throw e;
