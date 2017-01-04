@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 4, 2017 12:51:38 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Clases.Cobro" table="cobro" catalog="gimnasio">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned"></generator>
+        </id>
+        <property name="fecha" type="string">
+            <column name="fecha" length="15" not-null="true" />
+        </property>
+        <property name="importe" type="float">
+            <column name="importe" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="pago" type="float">
+            <column name="pago" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="adeuda" type="float">
+            <column name="adeuda" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="comprobante" type="string">
+            <column name="comprobante" length="20" not-null="true" />
+        </property>
+        <many-to-one name="cliente" column="id_cliente" 
+                class="Clases.Cliente" not-null="true"/>
+        <bag name="cobroActividad" table="cobro_actividad"
+				inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cobro" not-null="true" />
+            </key>
+                <one-to-many class="Clases.CobroActividad" />
+        </bag>
+    </class>
+</hibernate-mapping>
