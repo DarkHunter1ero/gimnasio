@@ -11,17 +11,17 @@
         
         <title>INSPINIA | Dashboard</title>
         
-        <link href="css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/font-awesome/css/font-awesome.css" rel="stylesheet"/>
         
         <!-- Toastr style -->
-        <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
         
         <!-- Gritter -->
-        <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/js/plugins/gritter/jquery.gritter.css" rel="stylesheet"/>
         
-        <link href="css/animate.css" rel="stylesheet"/>
-        <link href="css/style.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/animate.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="stylesheet"/>
         
     </head>
     
@@ -47,6 +47,10 @@
                 
                 
             </div>
+            
+            <ui:insert name="page_content" >
+                
+            </ui:insert>
             
             <!--<ui:include src="/myIncludes/gestionarClienteContent.xhtml" />-->
             
