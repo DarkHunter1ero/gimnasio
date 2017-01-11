@@ -13,6 +13,7 @@ public class CobroActividad  implements java.io.Serializable {
      private int idCobro;
      private Actividad actividad;
      private int cantidad;
+     private float importe;
 
     public CobroActividad() {
     }
@@ -44,6 +45,9 @@ public class CobroActividad  implements java.io.Serializable {
     }
 
     public void setActividad(Actividad actividad) {
+        if(actividad!=null){
+            setImporte(actividad.getPrecio()*cantidad);
+        }
         this.actividad = actividad;
     }
     
@@ -52,11 +56,19 @@ public class CobroActividad  implements java.io.Serializable {
     }
     
     public void setCantidad(int cantidad) {
+        if(actividad!=null){
+            setImporte(actividad.getPrecio()*cantidad);
+        }
         this.cantidad = cantidad;
     }
 
+    public float getImporte() {
+        return importe;
+    }
 
-
+    public void setImporte(float importe) {
+        this.importe = importe;
+    }
 
 }
 

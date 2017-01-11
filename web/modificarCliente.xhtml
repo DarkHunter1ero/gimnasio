@@ -1,81 +1,39 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <head>
-        
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-        <title>INSPINIA | Dashboard</title>
-        
-        <link href="css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="font-awesome/css/font-awesome.css" rel="stylesheet"/>
-        
-        <!-- Toastr style -->
-        <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
-        
-        <!-- Gritter -->
-        <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet"/>
-        
-        <link href="css/animate.css" rel="stylesheet"/>
-        <link href="css/style.css" rel="stylesheet"/>
-        
-    </head>
-    
-    <body>
-        <div id="wrapper">
-            
-            <ui:include src="/myIncludes/MenuIzq.xhtml" />
-            
-            <div id="page-wrapper" class="gray-bg dashbard-1">
-                
-                <div class="row border-bottom">
-                    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                        <div class="navbar-header">
-                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                            <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search"/>
-                                </div>
-                            </form>
-                        </div>
-                    </nav>
-                </div>
-                
-                
-                <ui:include src="/myIncludes/modificarClienteContent.xhtml" />
-                
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="index.xhtml">
+    <ui:define name="content">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Tabla de Administracion de Usuarios</h5>
             </div>
-            
         </div>
-        
-        
-        <!-- Mainly scripts -->
-        <script src="js/jquery-2.1.1.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        
-        <!-- Flot -->
-        <script src="js/plugins/flot/jquery.flot.js"></script>
-        <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-        <script src="js/plugins/flot/jquery.flot.spline.js"></script>
-        <script src="js/plugins/flot/jquery.flot.resize.js"></script>
-        <script src="js/plugins/flot/jquery.flot.pie.js"></script>
-        
-        <!-- Peity -->
-        <script src="js/plugins/peity/jquery.peity.min.js"></script>
-        <script src="js/demo/peity-demo.js"></script>
-        
-        <!-- Custom and plugin javascript -->
-        <script src="js/inspinia.js"></script>
-        <script src="js/plugins/pace/pace.min.js"></script>
-        
-        <!-- jQuery UI -->
-        <script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
-    </body>
-</html>
-
+        <div class="ibox-content">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
+                <li><a data-toggle="tab" href="#menu1">Actividades</a></li>
+            </ul>
+            
+            <div class="tab-content">
+                <h:form>
+                    <div id="home" class="tab-pane fade in active">
+                        <h3>Datos Personales</h3>
+                        <p>Cedula : <h:inputText value="#{clienteController.selected.CI}"/></p>
+                        <p>Nombre : <h:inputText value="#{clienteController.selected.nombre}"/></p>
+                        <p>Telefono : <h:inputText value="#{clienteController.selected.cel}"/></p>
+                        <p>Edad : <h:inputText value="#{clienteController.selected.edad}"/></p>
+                        <p>Sexo : <h:inputText value="#{clienteController.selected.sexo}"/></p>
+                        <p>Estado : <h:inputText value="#{clienteController.selected.estado}"/></p>
+                        <h:commandButton value="guardar" action="#{clienteController.modificarCliente()}" />
+                    </div>
+                </h:form>
+                <div id="menu1" class="tab-pane fade">
+                    <h3>Actividades</h3>
+                    <p>Aqui se listaran futuras actividades.</p>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -9,12 +9,15 @@
             <generator class="assigned" />
         </id>
         <property name="idCobro" type="int">
-            <column name="id_cobro" not-null="true" />
+            <column name="id_cobro" />
         </property>
         <many-to-one name="actividad" column="id_actividad" 
                 class="Clases.Actividad" not-null="true"/>
         <property name="cantidad" type="int">
             <column name="cantidad" not-null="true" />
+        </property>
+        <property name="importe" type="float">
+            <column name="importe" precision="12" scale="0" />
         </property>
     </class>
 </hibernate-mapping>

@@ -21,6 +21,9 @@ public class Cobro  implements java.io.Serializable {
      private float importe;
      private float pago;
      private float adeuda;
+     private float descuento;
+     private float importeFinal;
+     private String motivoDescuento;
      private String comprobante;
      private Cliente cliente;
      private List<CobroActividad> cobroActividad = new ArrayList();
@@ -29,12 +32,15 @@ public class Cobro  implements java.io.Serializable {
     public Cobro() {
     }
 
-    public Cobro(int id, String fecha, float importe, float pago, float adeuda, String comprobante, Cliente cliente) {
+    public Cobro(int id, String fecha, float importe, float pago, float adeuda, float descuento, float importeFinal, String motivoDescuento, String comprobante, Cliente cliente) {
         this.id = id;
         this.fecha = fecha;
         this.importe = importe;
         this.pago = pago;
         this.adeuda = adeuda;
+        this.descuento = descuento;
+        this.importeFinal = importeFinal;
+        this.motivoDescuento = motivoDescuento;
         this.comprobante = comprobante;
         this.cliente = cliente;
     }
@@ -98,6 +104,29 @@ public class Cobro  implements java.io.Serializable {
         this.cobroActividad = cobroActividad;
     }
 
+    public float getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(float descuento) {
+        this.descuento = descuento;
+    }
+
+    public float getImporteFinal() {
+        return importeFinal;
+    }
+
+    public void setImporteFinal(float importeFinal) {
+        this.importeFinal = importeFinal;
+    }
+
+    public String getMotivoDescuento() {
+        return motivoDescuento;
+    }
+
+    public void setMotivoDescuento(String motivoDescuento) {
+        this.motivoDescuento = motivoDescuento;
+    }
 }
 
 
