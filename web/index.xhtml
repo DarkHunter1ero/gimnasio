@@ -24,6 +24,21 @@
         <h:outputStylesheet name="css/animate.css" />
         <h:outputStylesheet name="css/style.css" />
         
+        
+        <!--se importar de otra forma las lebrerias hasta asegurar que funciona con h:outputStream-->
+        
+        <link href="#{facesContext.externalContext.requestContextPath}/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+        
+        <!-- Toastr style -->
+        <link href="#{facesContext.externalContext.requestContextPath}/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+        
+        <!-- Gritter -->
+        <link href="#{facesContext.externalContext.requestContextPath}/js/plugins/gritter/jquery.gritter.css" rel="stylesheet"/>
+        
+        <link href="#{facesContext.externalContext.requestContextPath}/css/animate.css" rel="stylesheet"/>
+        <link href="#{facesContext.externalContext.requestContextPath}/css/style.css" rel="stylesheet"/>
+        
     </h:head>
     
     <h:body>
