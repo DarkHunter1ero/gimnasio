@@ -7,6 +7,8 @@ package Beans;
 
 import Clases.Actividad;
 import Clases.ActividadHelper;
+import Clases.Cliente;
+import Clases.ClienteHelper;
 import Clases.CobroHelper;
 import Clases.Cobro;
 import Clases.CobroActividad;
@@ -21,6 +23,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.view.ViewScoped;
 
 @Named(value = "cobroController")
 @SessionScoped
@@ -28,6 +32,7 @@ public class CobroController implements Serializable{
     
     CobroHelper helper;
     ActividadHelper actividadHelper;
+    ClienteHelper clienteHelper;
     
     private Cobro selected = new Cobro();
     private List<Cobro> items = new ArrayList<>();
@@ -35,6 +40,7 @@ public class CobroController implements Serializable{
     public CobroController() {
         helper = new CobroHelper();
         actividadHelper = new ActividadHelper();
+        clienteHelper =  new ClienteHelper();
     }
     
     public void crearCobro(){
@@ -54,7 +60,6 @@ public class CobroController implements Serializable{
     }
     
     public List<Cobro> getItems(){
-        loadItems();
         return this.items;
     }
     
@@ -62,8 +67,12 @@ public class CobroController implements Serializable{
         this.items = items;
     }
     
-    public void loadItems(){
+    public void loadAllItems(){
         this.items=helper.findAll();
+    }
+    
+    public void loadItemsCliente(){
+        this.items=helper.findByClienteInitAll(cliente.getCI());
     }
     
     public List<Cobro> getItemsWithActividades(){
@@ -79,10 +88,12 @@ public class CobroController implements Serializable{
         Cobro cobro = getSelected();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Date date = new Date();
-        selected.setFecha(dateFormat.format(date));
+        cobro.setFecha(dateFormat.format(date));
         cobro.setCobroActividad(itemsCobroActividad);
+        cobro.setCliente(cliente);
         helper.create(cobro);
         clearController();
+        loadItemsCliente();
     }
     
     public void clearController(){
@@ -119,7 +130,7 @@ public class CobroController implements Serializable{
         calcularImporteTotal();
         calcularImporteTotalConDescuento();
     }
-    
+    ////////////////Para los drop down list//////////////////////
     private String ddlActividad;
     
     public void setDdlActividad(String value){
@@ -133,6 +144,19 @@ public class CobroController implements Serializable{
         return ddlActividad;
     }
     
+    private String ddlCliente;
+    
+    public void setDdlCliente(String value){
+        this.cliente = clienteHelper.findByCI(value);
+        this.ddlCliente = value;
+    }
+    
+    public String getDdlCliente() {
+        return ddlCliente;
+    }
+    
+    ////////////////find de: Para los drop down list//////////////////////
+    
     public void calcularImporteTotal(){
         float resultado = 0;
         for(CobroActividad cobroActividad : itemsCobroActividad){
@@ -143,5 +167,25 @@ public class CobroController implements Serializable{
     
     public void calcularImporteTotalConDescuento(){
         selected.setImporteFinal(selected.getImporte()-selected.getDescuento());
+    }
+    
+    private Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    public void setCliente(String value) {
+        this.cliente = clienteHelper.findByCI(value);
+    }
+    
+    public String cobrarACliente(Cliente cliente) {
+        this.cliente = cliente;
+        loadItemsCliente();
+        return "gestionarCobrosCliente.xhtml?faces-redirect=true";
     }
 }

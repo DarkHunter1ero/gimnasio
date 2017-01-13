@@ -8,7 +8,7 @@
         <div class="row">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5><i class="fa fa-edit"></i> Cobros por actividad</h5>
+                    <h5><i class="fa fa-edit"></i> Facurando a #{cobroController.cliente.nombre}</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -32,10 +32,6 @@
                         
                         <div role="form">
                             <h:form id="underAdd">
-                                <h:selectOneMenu styleClass="form-control m-b" value="#{cobroController.ddlCliente}" >
-                                    <f:selectItems value="#{clienteController.items}" var="item" itemLabel="#{item.nombre}"  itemValue="#{item.CI}" />
-                                    <f:ajax event="change" listener="#{cobroController.loadItemsCliente()}" render="tablaCobros"/>
-                                </h:selectOneMenu>
                                 <h:selectOneMenu styleClass="form-control m-b" value="#{cobroController.ddlActividad}" >
                                     <f:selectItems value="#{actividadController.items}" var="item" itemLabel="#{item.nombre}"  itemValue="#{item.id}" />
                                 </h:selectOneMenu>
@@ -115,7 +111,7 @@
                 </div>
                 <div class="ibox-content inline" >
                     <div class="table-responsive">
-                        <p:dataTable id="tablaCobros" class="table table-striped" value="#{cobroController.items}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
+                        <p:dataTable class="table table-striped" value="#{cobroController.items}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
                             <p:column headerText="#">
                                 <h:outputText value="#{item.id}"/>
                             </p:column>

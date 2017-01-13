@@ -32,7 +32,8 @@
                 <p>Permite visivilidad, modificacion y eliminacion de usuario.</p>
                 <div class="table-responsive">
                     <h:form>
-                        <p:dataTable class="table table-bordered table-striped" value="#{clienteController.items}" var="cliente" paginator="true" paginatorPosition="bottom" rows="10" >
+                        <h:commandButton class="btn btn-primary center-block" value="Nuevo Cliente" action="nuevoCliente.xhtml"/>
+                        <p:dataTable id="tableCliente" class="table table-bordered table-striped" value="#{clienteController.items}" var="cliente" paginator="true" paginatorPosition="bottom" rows="10" >
                             <p:column headerText="Cedula">
                                 <h:outputText value="#{cliente.CI}"/>
                             </p:column>
@@ -52,13 +53,18 @@
                                 <h:outputText value="#{cliente.estado}"/>
                             </p:column>
                             <p:column>
-                                <h:commandButton class="btn btn-primary" value="Detalle" action="#{clienteController.curdButton(cliente.CI, 'detalle')}"/>
+                                <h:commandButton class="btn btn-primary" value="Detalle" actionListener="#{clienteController.setSelected(cliente)}" action="detalleCliente.xhtml?faces-redirect=true"/>
                             </p:column>
                             <p:column>
-                                <h:commandButton class="btn btn-success" value="Modificar" action="#{clienteController.curdButton(cliente.CI, 'modificar')}"/>
+                                <h:commandButton class="btn btn-success" value="Modificar" actionListener="#{clienteController.setSelected(cliente)}" action="modificarCliente.xhtml?faces-redirect=true"/>
                             </p:column>
                             <p:column>
-                                <h:commandButton class="btn btn-danger" value="Eleiminar" action="#{clienteController.curdButton(cliente.CI, 'borrar')}"/>
+                                <h:commandButton class="btn btn-danger" value="Eleiminar" action="#{clienteController.delete(cliente)}" >
+                                    <f:ajax execute="@form" render=":tableCliente" />
+                                </h:commandButton>
+                            </p:column>
+                            <p:column>
+                                <h:commandButton class="btn btn-danger" value="Cobrar" action="#{cobroController.cobrarACliente(cliente)}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

@@ -32,6 +32,7 @@
                 <p>Permite modificacion y eliminacion de actividades.</p>
                 <div class="table-responsive">
                     <h:form>
+                        <h:commandButton class="btn btn-primary center-block" value="Nueva Actividad" actionListener="#{actividadController.prepareToCreate()}" action="modificarActividad.xhtml"/>
                         <p:dataTable class="table table-bordered table-striped" value="#{actividadController.items}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
                             <p:column headerText="Nombre">
                                 <h:outputText value="#{item.nombre}"/>
@@ -51,10 +52,10 @@
                                 </h:outputLabel> 
                             </p:column>
                             <p:column>
-                                <h:commandButton class="btn btn-success" value="Modificar"/>
+                                <h:commandButton class="btn btn-success" value="Modificar" actionListener="#{actividadController.setSelected(item)}" action="modificarActividad.xhtml"/>
                             </p:column>
                             <p:column>
-                                <h:commandButton class="btn btn-danger" value="Eleiminar"/>
+                                <h:commandButton class="btn btn-danger" value="Eleiminar" actionListener="#{actividadController.delete(item)}" />
                             </p:column>
                         </p:dataTable>
                     </h:form>

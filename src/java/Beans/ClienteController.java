@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Beans;
 
 import Clases.Cliente;
@@ -59,24 +55,15 @@ public class ClienteController implements Serializable{
         return helper.findById(id);
     }
     
-    public String modificarCliente(){
+    public void modificarCliente(){
         helper.update(selected);
-        return "gestionarCliente.xhtml?faces-redirect=true"; 
     }
     
-    public String curdButton(String id, String action){
-        for(Cliente item : items){
-            if(item.getCI().equals(id))
-                this.selected=item;
-        }
-        switch(action){
-            case "detalle": 
-                    return "detalleCliente.xhtml?faces-redirect=true"; 
-            case "modificar":
-                return "modificarCliente.xhtml?faces-redirect=true"; 
-            case "borrar":
-                break;
-        }
-        return "detalleCliente.xhtml?faces-redirect=true"; 
+    public void clearController(){
+        selected = new Cliente();
+    }
+    
+    public void delete(Cliente cli){
+        helper.delete(cli);
     }
 }

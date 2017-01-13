@@ -12,6 +12,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -86,4 +87,27 @@ public class CobroHelper extends DBGenericClass<Cobro>{
         return list;
     }
     
+    public List<Cobro> findByClienteInitAll(String CICliente) {
+        List<Cobro> list = null;
+        try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            Criteria cri = session.createCriteria(Cobro.class);
+            cri.createCriteria("cliente", "c");
+            cri.add(Restrictions.eq("c.CI", CICliente));
+            list = cri.list();
+            for (Cobro cobro : list) {
+                Hibernate.initialize(cobro.getCliente());
+                Hibernate.initialize(cobro.getCobroActividad());
+                List<CobroActividad> listActCob = cobro.getCobroActividad();
+                for (CobroActividad actCob : listActCob) {
+                    Hibernate.initialize(actCob.getActividad());
+                }
+            }
+        }catch(Exception e){
+            throw e;
+        }finally{
+            session.close();
+        }
+        return list;
+    }
 }

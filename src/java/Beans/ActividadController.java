@@ -62,6 +62,22 @@ public class ActividadController implements Serializable{
         return helper.findById(id);
     }
     
+    public void modificar(){
+        helper.update(selected);
+        selected = new Actividad();
+    }
+    
+    public void clearController(){
+        selected = new Actividad();
+    }
+    
+    public void delete(Actividad act){
+        helper.delete(act);
+    }
+    
+    public void prepareToCreate(){
+        selected=new Actividad();
+    }
     
 //    public Converter obtenerConversor() {
 //        return new Converter() {
