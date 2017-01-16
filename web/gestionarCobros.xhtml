@@ -54,11 +54,11 @@
                                 <label>Importe Total : #{cobroController.selected.importe}</label>
                                 descuento
                                 <h:inputText value="#{cobroController.selected.descuento}">
-                                    <f:ajax event="blur" listener="#{cobroController.calcularImporteTotalConDescuento()}" render=":underAdd" />
+                                    <f:ajax event="blur" listener="#{cobroController.calcularImporteTotalConDescuento()}" render="importeFinal" />
                                 </h:inputText>
                                 motivo de descuento
                                 <h:inputText value="#{cobroController.selected.motivoDescuento}" />
-                                <label>Importe Total con descuento : #{cobroController.selected.importeFinal}</label>
+                                <h:outputLabel id="importeFinal" value="Importe Total con descuento : #{cobroController.selected.importeFinal}" />
                                     
                             </h:form>
                         </div>
