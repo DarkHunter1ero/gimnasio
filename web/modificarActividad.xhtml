@@ -23,8 +23,8 @@
                         <p>Precio : <h:inputText value="#{actividadController.selected.precio}"/></p>
                         <p>Tipo : <h:inputText value="#{actividadController.selected.tipo}"/></p>
                         <p>Activo : <h:selectBooleanCheckbox value="#{actividadController.selected.activo}"/></p>
-                        <h:commandButton class="btn btn-success" value="Cancelar" actionListener="#{actividadController.clearController()}" action="gestionarActividad.xhtml?faces-redirect=true"/>
                         <h:commandButton class="btn btn-success" value="Guardar" actionListener="#{actividadController.guardarCambios()}" action="gestionarActividad.xhtml?faces-redirect=true"/>
+                        <h:commandButton class="btn btn-success" value="Cancelar" actionListener="#{actividadController.clearController()}" action="gestionarActividad.xhtml?faces-redirect=true"/>
                     </div>
                 </h:form>
                 <div id="menu1" class="tab-pane fade">

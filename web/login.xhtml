@@ -40,12 +40,12 @@ and open the template in the editor.
                 <p>Inicia secion. Velo por ti mismo.</p>
                 <h:form class="m-t" role="form">
                     <div class="form-group">
-                        <h:inputText class="form-control" a:placeholder="Usuario" required=""/>
+                        <h:inputText class="form-control" a:placeholder="Usuario" value="#{usuarioController.usuario}" required=""/>
                     </div>
                     <div class="form-group">
-                        <h:inputSecret class="form-control" a:placeholder="Contraseña" required=""/>
+                        <h:inputSecret class="form-control" a:placeholder="Contraseña" value="#{usuarioController.pass}" required=""/>
                     </div>
-                    <h:commandButton type="submit" class="btn btn-primary block full-width m-b" value="Login"/>
+                    <h:commandButton type="submit" class="btn btn-primary block full-width m-b" value="Login" action="#{usuarioController.validarLogin()}"/>
                     
                     <a href="#"><small>Forgot password?</small></a>
                     <p class="text-muted text-center"><small>Do not have an account?</small></p>
