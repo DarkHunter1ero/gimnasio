@@ -32,15 +32,17 @@
                         
                         <div role="form">
                             <h:form id="underAdd">
-                                <h:selectOneMenu styleClass="form-control m-b" value="#{cobroController.ddlCliente}" >
-                                    <f:selectItems value="#{clienteController.items}" var="item" itemLabel="#{item.nombre}"  itemValue="#{item.CI}" />
-                                    <f:ajax event="change" listener="#{cobroController.loadItemsCliente()}" render="tablaCobros"/>
+                                <h:selectOneMenu styleClass="form-control m-b" value="#{cobroController.cliente}" converter="#{clienteController.obtenerConversor()}">
+                                    <f:selectItems value="#{clienteController.items}" var="item" itemLabel="#{item.nombre}"  itemValue="#{item}" />
+                                    <f:ajax event="change" listener="#{cobroController.loadItemsCliente()}" render="cobrosForm:tablaCobros"/>
                                 </h:selectOneMenu>
-                                <h:selectOneMenu styleClass="form-control m-b" value="#{cobroController.ddlActividad}" >
-                                    <f:selectItems value="#{actividadController.items}" var="item" itemLabel="#{item.nombre}"  itemValue="#{item.id}" />
+                                
+                                <h:selectOneMenu styleClass="form-control m-b" value="#{cobroController.selectedCobroActividad.actividad}" converter="#{actividadController.obtenerConversor()}">
+                                    <f:selectItems value="#{actividadController.items}" var="item" itemLabel="#{item.nombre}"  itemValue="#{item}" />
                                 </h:selectOneMenu>
+                                
                                 <!--                                    <div class="form-group">
-                                                                        
+                                    
                                                                         <p:spinner  id="basic" value="#/{spinnerView.number1}" min="0"/>
                                                                     </div>-->
                                 <p:spinner value="#{cobroController.selectedCobroActividad.cantidad}" min="0" />
@@ -57,22 +59,20 @@
                                 motivo de descuento
                                 <h:inputText value="#{cobroController.selected.motivoDescuento}" />
                                 <label>Importe Total con descuento : #{cobroController.selected.importeFinal}</label>
-                                
+                                    
                             </h:form>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="table-responsive">
-                                <h:form id="cobroActividadForm">
-                                <p:dataTable id="cobroActividadTable" class="table table-striped" value="#{cobroController.itemsCobroActividad}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
-                                    <p:column headerText="#">
-                                        <h:outputText value="#{item.id}"/>
-                                    </p:column>
-                                    <p:column headerText="idCobro">
-                                        <h:outputText value="#{item.idCobro}"/>
-                                    </p:column>
+                            <h:form id="cobroActividadForm">
+                                <p:dataTable id="cobroActividadTable" class="table table-striped" value="#{cobroController.itemsCobroActividad}" var="item" 
+                                             paginator="true" paginatorPosition="bottom" rows="10" >
                                     <p:column headerText="Actividad">
                                         <h:outputText value="#{item.actividad.nombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Precio de Actividad">
+                                        <h:outputText value="#{item.actividad.precio}"/>
                                     </p:column>
                                     <p:column headerText="Cantidad">
                                         <h:outputText value="#{item.cantidad}"/>
@@ -115,29 +115,36 @@
                 </div>
                 <div class="ibox-content inline" >
                     <div class="table-responsive">
-                        <p:dataTable id="tablaCobros" class="table table-striped" value="#{cobroController.items}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
-                            <p:column headerText="#">
-                                <h:outputText value="#{item.id}"/>
-                            </p:column>
-                            <p:column headerText="Nombre Cliente">
-                                <h:outputText value="#{item.cliente.nombre}"/>
-                            </p:column>
-                            <p:column headerText="Pago">
-                                <h:outputText value="#{item.pago}"/>
-                            </p:column>
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{item.fecha}"/>
-                            </p:column>
-                            <p:column headerText="importe">
-                                <h:outputText value="#{item.importe}"/>
-                            </p:column>
-                            <p:column headerText="importe final">
-                                <h:outputText value="#{item.importeFinal}"/>
-                            </p:column>
-                            <p:column headerText="descuento">
-                                <h:outputText value="#{item.descuento}"/>
-                            </p:column>
-                        </p:dataTable>
+                        <h:form id="cobrosForm">
+                            <p:dataTable id="tablaCobros" class="table table-striped" value="#{cobroController.items}" var="item"
+                                         paginator="true" paginatorPosition="bottom" rows="10" filteredValue="#{filtersList.filteredItems}" widgetVar="widget">
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar:  " />
+                                        <p:inputText id="globalFilter" onkeyup="PF('widget').filter()" style="width:150px" placeholder="Cliente o Fecha"/>
+                                    </p:outputPanel>
+                                </f:facet>
+                                <p:column headerText="Fecha" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains">
+                                    <h:outputText value="#{item.fecha}"/>
+                                </p:column>
+                                <p:column headerText="Cliente" filterStyle="display:none" filterBy="cliente.nombre" filterMatchMode="contains">
+                                    <h:outputText value="#{item.cliente.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Pago">
+                                    <h:outputText value="#{item.pago}"/>
+                                </p:column>
+                                <p:column headerText="Importe">
+                                    <h:outputText value="#{item.importe}"/>
+                                </p:column>
+                                <p:column headerText="Descuento">
+                                    <h:outputText value="#{item.descuento}"/>
+                                </p:column>
+                                <p:column headerText="Importe con Descuento">
+                                    <h:outputText value="#{item.importeFinal}"/>
+                                </p:column>
+                                
+                            </p:dataTable>
+                        </h:form>
                     </div>
                 </div>
             </div>

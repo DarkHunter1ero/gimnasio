@@ -7,6 +7,7 @@ package Beans;
 
 import Clases.Actividad;
 import Clases.ActividadHelper;
+import DataBase.DBGenericClass;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,21 @@ import javax.faces.convert.Converter;
 
 @Named(value = "actividadController")
 @SessionScoped
-public class ActividadController implements Serializable{
+public class ActividadController extends genericConverter<Actividad> implements Serializable{
 
     ActividadHelper helper;
 
     private Actividad selected = new Actividad();
     private List<Actividad> items = new ArrayList<>();
+
+//    public ActividadController(ActividadHelper helper, DBGenericClass helper) {
+//        super(helper);
+//        this.helper = helper;
+//    }
     
     public ActividadController() {
          helper = new ActividadHelper();
+         super.helper = helper;
     }
     
     public void crearActividad(){
@@ -67,37 +74,24 @@ public class ActividadController implements Serializable{
         selected = new Actividad();
     }
     
+    public void guardarCambios(){
+        if(selected.getId()==0){
+            crearActividad();
+        }else{
+            modificar();
+        }
+    }
+    
     public void clearController(){
         selected = new Actividad();
     }
     
     public void delete(Actividad act){
-        helper.delete(act);
+        act.setActivo(false);
+        helper.update(act);
     }
     
     public void prepareToCreate(){
         selected=new Actividad();
     }
-    
-//    public Converter obtenerConversor() {
-//        return new Converter() {
-//            @Override
-//            public Object getAsObject(FacesContext context, UIComponent component, String value) {
-//                // This method is called when HTTP request parameter is to be converted to item value.
-//                // You need to convert the student ID back to Student.
-//                int id = Integer.valueOf(value);
-//                Actividad actividad = helper.findById(id);
-//                return actividad;
-//            }
-//            
-//            @Override
-//            public String getAsString(FacesContext context, UIComponent component, Object value) {
-//                // This method is called when item value is to be converted to HTTP request parameter.
-//                // Normal practice is to return an unique identifier here, such as student ID.
-//                Actividad actividad = (Actividad) value;
-//                int id = actividad.getId();
-//                return String.valueOf(id);
-//            }
-//        };
-//    }
 }

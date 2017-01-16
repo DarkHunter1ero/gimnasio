@@ -5,7 +5,6 @@
 */
 package Beans;
 
-import Clases.Actividad;
 import Clases.ActividadHelper;
 import Clases.Cliente;
 import Clases.ClienteHelper;
@@ -20,11 +19,6 @@ import java.util.Date;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.view.ViewScoped;
 
 @Named(value = "cobroController")
 @SessionScoped
@@ -91,7 +85,7 @@ public class CobroController implements Serializable{
         cobro.setFecha(dateFormat.format(date));
         cobro.setCobroActividad(itemsCobroActividad);
         cobro.setCliente(cliente);
-        helper.create(cobro);
+        helper.createWithRelations(cobro);
         clearController();
         loadItemsCliente();
     }
@@ -126,36 +120,10 @@ public class CobroController implements Serializable{
     
     public void addCobroActividad(){
         itemsCobroActividad.add(selectedCobroActividad);
-        selectedCobroActividad = new CobroActividad();
         calcularImporteTotal();
         calcularImporteTotalConDescuento();
+        selectedCobroActividad = new CobroActividad();
     }
-    ////////////////Para los drop down list//////////////////////
-    private String ddlActividad;
-    
-    public void setDdlActividad(String value){
-        int id = Integer.valueOf(value);
-        Actividad actividad = actividadHelper.findById(id);
-        selectedCobroActividad.setActividad(actividad);
-        this.ddlActividad = value;
-    }
-    
-    public String getDdlActividad() {
-        return ddlActividad;
-    }
-    
-    private String ddlCliente;
-    
-    public void setDdlCliente(String value){
-        this.cliente = clienteHelper.findByCI(value);
-        this.ddlCliente = value;
-    }
-    
-    public String getDdlCliente() {
-        return ddlCliente;
-    }
-    
-    ////////////////find de: Para los drop down list//////////////////////
     
     public void calcularImporteTotal(){
         float resultado = 0;
@@ -179,13 +147,8 @@ public class CobroController implements Serializable{
         this.cliente = cliente;
     }
     
-    public void setCliente(String value) {
-        this.cliente = clienteHelper.findByCI(value);
-    }
-    
-    public String cobrarACliente(Cliente cliente) {
+    public void cobrarACliente(Cliente cliente) {
         this.cliente = cliente;
         loadItemsCliente();
-        return "gestionarCobrosCliente.xhtml?faces-redirect=true";
     }
 }

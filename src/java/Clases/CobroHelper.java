@@ -87,6 +87,24 @@ public class CobroHelper extends DBGenericClass<Cobro>{
         return list;
     }
     
+    public void createWithRelations(Cobro cobro){
+        try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            trans = session.beginTransaction();
+            session.persist(cobro);
+            for(CobroActividad ca:cobro.getCobroActividad()){
+                ca.setIdCobro(cobro.getId());
+                session.persist(ca);
+            }
+            trans.commit();
+        }catch(Exception e){
+            trans.rollback();
+            throw e;
+        }finally{
+            session.close();
+        }
+    }
+    
     public List<Cobro> findByClienteInitAll(String CICliente) {
         List<Cobro> list = null;
         try{

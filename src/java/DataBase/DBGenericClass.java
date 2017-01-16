@@ -5,12 +5,21 @@
 */
 package DataBase;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.jdbc.Work;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StringType;
+import org.hibernate.type.Type;
 
 public abstract class DBGenericClass<T>{
     
@@ -70,11 +79,34 @@ public abstract class DBGenericClass<T>{
         }
     }
     
-    public T findById(int id){
-        T object;
+//    public T findById(int id){
+//        T object;
+//        try{
+//            session = HibernateUtil.getSessionFactory().openSession();
+//            object = (T)session.get(entityClass, id);
+//        }catch(Exception e){
+//            throw e;
+//        }finally{
+//            session.close();
+//        }
+//        return object;
+//    }
+    
+    public T findById(Object id){
+        Type result;
+        T object = null;
         try{
-        session = HibernateUtil.getSessionFactory().openSession();
-        object = (T)session.get(entityClass, id);
+            session = HibernateUtil.getSessionFactory().openSession();
+            ClassMetadata cmd = session.getSessionFactory().getClassMetadata(entityClass);
+            result = cmd.getIdentifierType();
+            if(result instanceof StringType ){
+                String newId = String.valueOf(id);
+                object = (T)session.get(entityClass, newId);
+            }
+            if(result instanceof IntegerType ){
+                int newId = Integer.valueOf(String.valueOf(id));
+                object = (T)session.get(entityClass, newId);
+            }
         }catch(Exception e){
             throw e;
         }finally{
@@ -82,6 +114,19 @@ public abstract class DBGenericClass<T>{
         }
         return object;
     }
+    
+//    public T findById(String id){
+//        T object;
+//        try{
+//            session = HibernateUtil.getSessionFactory().openSession();
+//            object = (T)session.get(entityClass, id);
+//        }catch(Exception e){
+//            throw e;
+//        }finally{
+//            session.close();
+//        }
+//        return object;
+//    }
     
     public List<T> findAll() {
         List<T> list = null;
@@ -126,5 +171,47 @@ public abstract class DBGenericClass<T>{
             session.close();
         }
         return result.intValue();
+    }
+    
+    public Object getIdentifier(Object entity){
+        Object result;
+        try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            ClassMetadata cmd = session.getSessionFactory().getClassMetadata(entityClass);
+            result = cmd.getIdentifier(entity);
+        }catch(Exception e){
+            throw e;
+        }finally{
+            session.close();
+        }
+        return result;
+    }
+    
+//    public boolean exist(Object id){
+//        Type result;
+//        T object = null;
+//        try{
+//            session = HibernateUtil.getSessionFactory().openSession();
+//            ClassMetadata cmd = session.getSessionFactory().getClassMetadata(entityClass);
+//            result = cmd.getIdentifierType();
+//            if(result instanceof StringType ){
+//                String newId = String.valueOf(id);
+//                object = (T)session.get(entityClass, newId);
+//            }
+//            if(result instanceof IntegerType ){
+//                int newId = Integer.valueOf(String.valueOf(id));
+//                object = (T)session.get(entityClass, newId);
+//            }
+//        }catch(Exception e){
+//            throw e;
+//        }finally{
+//            session.close();
+//        }
+//        return object;
+//    }
+    
+    public boolean exist(T entity) {
+        Object obj = getIdentifier(entity);
+        return !(findById(obj) == null);
     }
 }

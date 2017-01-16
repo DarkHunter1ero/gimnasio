@@ -33,17 +33,24 @@
                 <div class="table-responsive">
                     <h:form>
                         <h:commandButton class="btn btn-primary center-block" value="Nueva Actividad" actionListener="#{actividadController.prepareToCreate()}" action="modificarActividad.xhtml"/>
-                        <p:dataTable class="table table-bordered table-striped" value="#{actividadController.items}" var="item" paginator="true" paginatorPosition="bottom" rows="10" >
-                            <p:column headerText="Nombre">
+                        <p:dataTable class="table table-bordered table-striped" value="#{actividadController.items}" var="item" 
+                                     paginator="true" paginatorPosition="bottom" rows="10" filteredValue="#{filtersList.filteredItems}" widgetVar="widget">
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Buscar:  " />
+                                    <p:inputText id="globalFilter" onkeyup="PF('widget').filter()" style="width:150px" placeholder="Ingrese algun texto"/>
+                                </p:outputPanel>
+                            </f:facet>
+                            <p:column headerText="Nombre" filterStyle="display:none" filterBy="nombre" filterMatchMode="contains" sortBy="#{item.nombre}">
                                 <h:outputText value="#{item.nombre}"/>
                             </p:column>
-                            <p:column headerText="Precio">
+                            <p:column headerText="Precio" filterStyle="display:none" filterBy="precio" filterMatchMode="contains" sortBy="#{item.precio}">
                                 <h:outputText value="#{item.precio}"/>
                             </p:column>
-                            <p:column headerText="Tipo">
+                            <p:column headerText="Tipo" filterStyle="display:none" filterBy="tipo" filterMatchMode="contains" sortBy="#{item.tipo}">
                                 <h:outputText value="#{item.tipo}"/>
                             </p:column>
-                            <p:column headerText="Activo" style="text-align: center">
+                            <p:column headerText="Activo" style="text-align: center" sortBy="#{item.activo}">
                                 <h:outputLabel rendered="#{item.activo}">
                                     <i class="fa fa-check text-navy"></i>
                                 </h:outputLabel>   

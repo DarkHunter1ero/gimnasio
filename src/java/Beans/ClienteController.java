@@ -1,6 +1,7 @@
 
 package Beans;
 
+import Clases.Actividad;
 import Clases.Cliente;
 import Clases.ClienteHelper;
 import java.io.Serializable;
@@ -8,10 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
 @Named(value = "clienteController")
 @SessionScoped
-public class ClienteController implements Serializable{
+public class ClienteController extends genericConverter<Cliente> implements Serializable{
 
     ClienteHelper helper;
 
@@ -20,6 +24,7 @@ public class ClienteController implements Serializable{
     
     public ClienteController() {
          helper = new ClienteHelper();
+         super.helper=helper;
     }
     
     public void crearCliente(){
@@ -65,5 +70,21 @@ public class ClienteController implements Serializable{
     
     public void delete(Cliente cli){
         helper.delete(cli);
+    }
+    
+    public void prepareToCreate(){
+        selected = new Cliente();
+    }
+    
+    public void guardarCambios(){
+        if(!verificarExistencia(selected)){
+            crearCliente();
+        }else{
+            modificarCliente();
+        }
+    }
+    
+    public boolean verificarExistencia(Cliente cli){
+        return helper.exist(cli);
     }
 }

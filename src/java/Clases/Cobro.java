@@ -127,6 +127,33 @@ public class Cobro  implements java.io.Serializable {
     public void setMotivoDescuento(String motivoDescuento) {
         this.motivoDescuento = motivoDescuento;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cobro other = (Cobro) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
 
 

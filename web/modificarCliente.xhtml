@@ -3,7 +3,8 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="index.xhtml">
+                template="index.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="content">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
@@ -15,12 +16,15 @@
                 <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
                 <li><a data-toggle="tab" href="#menu1">Actividades</a></li>
             </ul>
-                
+            
             <div class="tab-content">
-                <h:form>
-                    <div id="home" class="tab-pane fade in active">
+                <div id="home" class="tab-pane fade in active">
+                    <h:form>
                         <h3>Datos Personales</h3>
-                        <p>Cedula : <h:inputText value="#{clienteController.selected.CI}"/></p>
+                        <p>Cedula : 
+                            <h:outputLabel rendered="#{not empty clienteController.selected.CI}" value="#{clienteController.selected.CI}"/>
+                            <h:inputText rendered="#{empty clienteController.selected.CI}" value="#{clienteController.selected.CI}"/>
+                        </p>
                         <p>Nombre : <h:inputText value="#{clienteController.selected.nombre}"/></p>
                         <p>Telefono : <h:inputText value="#{clienteController.selected.cel}"/></p>
                         <p>Edad : <h:inputText value="#{clienteController.selected.edad}"/></p>
@@ -34,12 +38,13 @@
                             <h:selectOneMenu value="#{clienteController.selected.estado}">
                                 <f:selectItem itemValue="Activo" itemLabel="Activo" />
                                 <f:selectItem itemValue="Inactivo" itemLabel="Inactivo" />
+                                <f:selectItem itemValue="Cancelado" itemLabel="Cancelado" />
                             </h:selectOneMenu>
                         </p>
-                        <h:commandButton value="Cancelar" actionListener="#{clienteController.clearController()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
-                        <h:commandButton value="Guardar" actionListener="#{clienteController.modificarCliente()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
-                    </div>
-                </h:form>
+                        <h:commandButton class="btn btn-success" value="Cancelar" actionListener="#{clienteController.clearController()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
+                        <h:commandButton class="btn btn-success" value="Guardar" actionListener="#{clienteController.guardarCambios()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
+                    </h:form>
+                </div>
                 <div id="menu1" class="tab-pane fade">
                     <h3>Actividades</h3>
                     <p>Aqui se listaran futuras actividades.</p>
