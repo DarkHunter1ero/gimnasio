@@ -44,8 +44,8 @@
                                         <p:inputText id="globalFilter" onkeyup="PF('widget').filter()" style="width:150px" placeholder="Ingrese algun texto"/>
                                     </p:outputPanel>
                                 </f:facet>
-                                <p:column headerText="#">
-                                    <h:outputText value="#{item.id}"/>
+                                <p:column headerText="Fecha" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains">
+                                    <h:outputText value="#{item.fecha}"/>
                                 </p:column>
                                 <p:column headerText="Nombre Cliente" filterStyle="display:none" filterBy="cliente.nombre" filterMatchMode="contains">
                                     <h:outputText value="#{item.cliente.nombre}"/>
@@ -53,66 +53,14 @@
                                 <p:column headerText="Pago" filterStyle="display:none" filterBy="pago" filterMatchMode="contains">
                                     <h:outputText value="#{item.pago}"/>
                                 </p:column>
-                                <p:column headerText="Fecha" filterStyle="display:none" filterBy="fecha" filterMatchMode="contains">
-                                    <h:outputText value="#{item.fecha}"/>
-                                </p:column>
                                 <p:column headerText="importe" filterStyle="display:none" filterBy="importe" filterMatchMode="contains">
                                     <h:outputText value="#{item.importe}"/>
-                                </p:column>
-                                <p:column headerText="importe final" filterStyle="display:none" filterBy="importeFinal" filterMatchMode="contains">
-                                    <h:outputText value="#{item.importeFinal}"/>
                                 </p:column>
                                 <p:column headerText="descuento" filterStyle="display:none" filterBy="descuento" filterMatchMode="contains">
                                     <h:outputText value="#{item.descuento}"/>
                                 </p:column>
-                            </p:dataTable>
-                        </h:form>
-                    </div>
-                </div>
-            </div>
-        </div>
-            
-        <div class="row">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5><i class="fa fa-clock-o"></i> Historial de facturas finales</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="#">Config option 1</a>
-                            </li>
-                            <li><a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content inline" >
-                    <div class="table-responsive">
-                        <h:form id="cobrosActividadForm" >
-                            <p:dataTable id="tablaCobrosActividad" class="table table-striped" value="#{cobroController.selected.cobroActividad}" var="item"
-                                         paginator="true" paginatorPosition="bottom" rows="10" >
-                                <p:column headerText="#">
-                                    <h:outputText value="#{item.id}"/>
-                                </p:column>
-                                <p:column headerText="Nombre Cliente">
-                                    <h:outputText value="#{item.cantidad}"/>
-                                </p:column>
-                                <p:column headerText="Pago" >
-                                    <h:outputText value="#{item.importe}"/>
-                                </p:column>
-                                <p:column headerText="Fecha" >
-                                    <h:outputText value="#{item.actividad.nombre}"/>
-                                </p:column>
-                                <p:column headerText="importe" >
-                                    <h:outputText value="#{item.actividad.precio}"/>
+                                <p:column headerText="importe final" filterStyle="display:none" filterBy="importeFinal" filterMatchMode="contains">
+                                    <h:outputText value="#{item.importeFinal}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:form>
@@ -120,6 +68,54 @@
                 </div>
             </div>
         </div>
-                
+        <h:form id="cobrosActividadForm">
+            <ui:fragment rendered="#{not empty cobroController.selected.cliente}">
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5><i class="fa fa-clock-o"></i> Detalle de Cobros del cliente: <h:outputLabel value="#{cobroController.selected.cliente.nombre}" /> a la fecha: <h:outputLabel value="#{cobroController.selected.fecha}" /></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">Config option 1</a>
+                                    </li>
+                                    <li><a href="#">Config option 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content inline" >
+                            <div class="table-responsive">
+                                
+                                <p:dataTable id="tablaCobrosActividad" class="table table-striped" value="#{cobroController.selected.cobroActividad}" var="item"
+                                             paginator="true" paginatorPosition="bottom" rows="10" >
+                                    <p:column headerText="Actividad" >
+                                        <h:outputText value="#{item.actividad.nombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Cantidad">
+                                        <h:outputText value="#{item.cantidad}"/>
+                                    </p:column>
+                                    <p:column headerText="Precio" >
+                                        <h:outputText value="#{item.actividad.precio}"/>
+                                    </p:column>
+                                    <p:column headerText="Importe" >
+                                        <h:outputText value="#{item.importe}"/>
+                                    </p:column>
+                                </p:dataTable>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:fragment>
+        </h:form> 
     </ui:define>
 </ui:composition>
