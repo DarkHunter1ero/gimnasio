@@ -5,28 +5,68 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="index.xhtml">
     <ui:define name="content">
+        
+        <style>
+            
+            td, th {
+                padding: 10px !important;
+            }
+            
+        </style>
+            
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Gestionar Actividad</h5>
             </div>
         </div>
-        <div class="ibox-content">
+        <div class="ibox-content" style="overflow: auto">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
             </ul>
-                
+            
             <div class="tab-content">
-                <h:form>
-                    <div id="home" class="tab-pane fade in active">
-                        <h3>Datos de la Actividad</h3>
-                        <p>Nombre : <h:inputText value="#{actividadController.selected.nombre}"/></p>
-                        <p>Precio : <h:inputText value="#{actividadController.selected.precio}"/></p>
-                        <p>Tipo : <h:inputText value="#{actividadController.selected.tipo}"/></p>
-                        <p>Activo : <h:selectBooleanCheckbox value="#{actividadController.selected.activo}"/></p>
-                        <h:commandButton class="btn btn-success" value="Guardar" actionListener="#{actividadController.guardarCambios()}" action="gestionarActividad.xhtml?faces-redirect=true"/>
-                        <h:commandButton class="btn btn-success" value="Cancelar" actionListener="#{actividadController.clearController()}" action="gestionarActividad.xhtml?faces-redirect=true"/>
-                    </div>
-                </h:form>
+                
+                <div id="home" class="tab-pane fade in active">
+                    <h:form>
+                        <table>
+                            <tr>
+                                <td>
+                                    Nombre : 
+                                </td>
+                                <td>
+                                    <h:inputText value="#{actividadController.selected.nombre}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Precio : 
+                                </td>
+                                <td>
+                                    <h:inputText value="#{actividadController.selected.precio}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Tipo : 
+                                </td>
+                                <td>
+                                    <h:inputText value="#{actividadController.selected.tipo}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Activo : 
+                                </td>
+                                <td>
+                                    <h:selectBooleanCheckbox value="#{actividadController.selected.activo}"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <h:commandButton style="float: right; padding: 10px; margin: 5px;" class="btn btn-success" value="Guardar" actionListener="#{actividadController.guardarCambios()}" action="gestionarActividad.xhtml?faces-redirect=true"/>
+                        <h:commandButton style="float: right; padding: 10px; margin: 5px;" class="btn btn-success" value="Cancelar" actionListener="#{actividadController.clearController()}" action="gestionarActividad.xhtml?faces-redirect=true"/>
+                    </h:form>
+                </div>
+                        
                 <div id="menu1" class="tab-pane fade">
                     <h3>Actividades</h3>
                     <p>Aqui se listaran futuras actividades.</p>
