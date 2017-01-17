@@ -28,7 +28,6 @@
             </div>
             <div class="ibox-content">
                 
-                <p>Permite visivilidad, modificacion y eliminacion de usuario.</p>
                 <div class="table-responsive">
                     <h:form>
                         <h:commandButton class="btn btn-primary center-block" value="Nuevo Cliente" actionListener="#{clienteController.prepareToCreate()}" action="modificarCliente.xhtml"/>
@@ -37,7 +36,7 @@
                             <f:facet name="header">
                                 <p:outputPanel>
                                     <h:outputText value="Buscar:  " />
-                                    <p:inputText id="globalFilter" onkeyup="PF('widget').filter()" style="width:150px" placeholder="Ingrese algun texto"/>
+                                    <h:inputText id="globalFilter" onkeyup="PF('widget').filter()" style="width:150px"/>
                                 </p:outputPanel>
                             </f:facet>
                             <p:column headerText="Cedula" filterStyle="display:none" filterBy="CI" filterMatchMode="contains" sortBy="#{cliente.CI}">

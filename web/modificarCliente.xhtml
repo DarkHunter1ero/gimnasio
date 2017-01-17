@@ -6,12 +6,21 @@
                 template="index.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="content">
+        
+        <style>
+            
+            td, th {
+                padding: 10px !important;
+            }
+            
+        </style>
+        
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Tabla de Administracion de Usuarios</h5>
             </div>
         </div>
-        <div class="ibox-content">
+        <div class="ibox-content" style="overflow: auto">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Datos Personales</a></li>
                 <li><a data-toggle="tab" href="#menu1">Actividades</a></li>
@@ -20,29 +29,66 @@
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
                     <h:form>
-                        <h3>Datos Personales</h3>
-                        <p>Cedula : 
-                            <h:outputLabel rendered="#{not empty clienteController.selected.CI}" value="#{clienteController.selected.CI}"/>
-                            <h:inputText rendered="#{empty clienteController.selected.CI}" value="#{clienteController.selected.CI}"/>
-                        </p>
-                        <p>Nombre : <h:inputText value="#{clienteController.selected.nombre}"/></p>
-                        <p>Telefono : <h:inputText value="#{clienteController.selected.cel}"/></p>
-                        <p>Edad : <h:inputText value="#{clienteController.selected.edad}"/></p>
-                        <p>Sexo : 
-                            <h:selectOneMenu value="#{clienteController.selected.sexo}">
-                                <f:selectItem itemValue="Masculino" itemLabel="Masculino" />
-                                <f:selectItem itemValue="Femenino" itemLabel="Femenino" />
-                            </h:selectOneMenu>
-                        </p>
-                        <p>Estado : 
-                            <h:selectOneMenu value="#{clienteController.selected.estado}">
-                                <f:selectItem itemValue="Activo" itemLabel="Activo" />
-                                <f:selectItem itemValue="Inactivo" itemLabel="Inactivo" />
-                                <f:selectItem itemValue="Cancelado" itemLabel="Cancelado" />
-                            </h:selectOneMenu>
-                        </p>
-                        <h:commandButton class="btn btn-success" value="Guardar" actionListener="#{clienteController.guardarCambios()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
-                        <h:commandButton class="btn btn-success" value="Cancelar" actionListener="#{clienteController.clearController()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
+                        <table>
+                            <tr>
+                                <td>
+                                    Cedula : 
+                                </td>
+                                <td>
+                                    <h:outputLabel rendered="#{not empty clienteController.selected.CI}" value="#{clienteController.selected.CI}"/>
+                                    <h:inputText rendered="#{empty clienteController.selected.CI}" value="#{clienteController.selected.CI}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    Nombre :
+                                </td>
+                                <td> 
+                                    <h:inputText value="#{clienteController.selected.nombre}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    Telefono :
+                                </td>
+                                <td> 
+                                    <h:inputText value="#{clienteController.selected.cel}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    Edad :
+                                </td>
+                                <td> 
+                                    <h:inputText value="#{clienteController.selected.edad}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    Sexo :
+                                </td>
+                                <td> 
+                                    <h:selectOneMenu value="#{clienteController.selected.sexo}">
+                                        <f:selectItem itemValue="Masculino" itemLabel="Masculino" />
+                                        <f:selectItem itemValue="Femenino" itemLabel="Femenino" />
+                                    </h:selectOneMenu>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    Estado :
+                                </td>
+                                <td> 
+                                    <h:selectOneMenu value="#{clienteController.selected.estado}">
+                                        <f:selectItem itemValue="Activo" itemLabel="Activo" />
+                                        <f:selectItem itemValue="Inactivo" itemLabel="Inactivo" />
+                                        <f:selectItem itemValue="Cancelado" itemLabel="Cancelado" />
+                                    </h:selectOneMenu>
+                                </td>
+                            </tr>
+                        </table>
+                            <h:commandButton style="float: right; padding: 10px" class="btn btn-success" value="Guardar" actionListener="#{clienteController.guardarCambios()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
+                            <h:commandButton style="float: right; padding: 10px" class="btn btn-success" value="Cancelar" actionListener="#{clienteController.clearController()}" action="gestionarCliente.xhtml?faces-redirect=true"/>
                     </h:form>
                 </div>
                 <div id="menu1" class="tab-pane fade">
